@@ -1,0 +1,30 @@
+services:
+  redis-db:
+    image: "redis:alpine"
+    # No necesitamos subir esta, ya es pública y oficial
+    networks:
+      - app-net
+
+  api:
+    build: ./api
+    # AQUI AGREGAMOS EL NOMBRE DE LA IMAGEN
+    image: sssaragosin/visitas-api:v1
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis-db
+    networks:
+      - app-net
+
+  web:
+    build: ./web
+    # AQUI TAMBIEN
+    image: sssaragosin/visitas-web:v1
+    ports:
+      - "8080:80"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge

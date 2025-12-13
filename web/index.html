@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contador Redis</title>
+    <style>
+        body { 
+            background-color: #222; 
+            color: #fff; 
+            font-family: monospace; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;
+        }
+        .card {
+            background: #333;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        h1 { font-size: 4rem; margin: 20px 0; color: #4CAF50; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h3>Visitas Totales</h3>
+        <h1 id="contador">...</h1>
+        <p>Gestionado por Python & Redis</p>
+    </div>
+
+    <script>
+            fetch('/visitas')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('contador').innerText = data.visitas;
+            })
+            .catch(err => console.error("Error conectando a la API", err));
+    </script>
+</body>
+</html>
